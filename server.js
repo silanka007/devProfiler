@@ -10,7 +10,6 @@ connectDb()
 
 const PORT = process.env.PORT || 5000;
 
-
 //defining routes
 app.get('/', (req, res) => {res.send('api is running...')})
 app.use('/api/v1/users', require('./routes/api/users')());
