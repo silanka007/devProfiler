@@ -5,10 +5,13 @@ const debug = require('debug')('app');
 const connectDb = require('./config/db');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
 //connecting to db
 connectDb()
 
-const PORT = process.env.PORT || 5000;
+//init middlewares
+app.use(express.json({ extended: false }))
 
 //defining routes
 app.get('/', (req, res) => {res.send('api is running...')})
