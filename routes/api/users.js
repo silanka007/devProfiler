@@ -1,12 +1,13 @@
-const UsersRouter = () => {
-    const router = require('express').Router();
-    const { check, validationResult } = require('express-validator');
-    const User = require('../../models/User');
-    const gravatar = require('gravatar');
-    const bcrypt = require('bcryptjs');
-    const config = require('config');
-    const jwt = require('jsonwebtoken');
+const router = require('express').Router();
+const { check, validationResult } = require('express-validator');
+const User = require('../../models/User');
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
+
+const UsersRouter = () => {
     // @route   POST api/v1/users
     // @desc    User registration
     // @access  Public
