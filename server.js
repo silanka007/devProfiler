@@ -3,7 +3,6 @@ const chalk = require('chalk');
 const debug = require('debug')('app');
 
 const connectDb = require('./config/db');
-const authMiddleware =  require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,6 +12,7 @@ connectDb()
 
 //init middlewares
 app.use(express.json({ extended: false }))
+const authMiddleware =  require('./middleware/auth');
 
 //defining routes
 app.get('/', (req, res) => {res.send('api is running...')})
