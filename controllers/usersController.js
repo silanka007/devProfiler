@@ -1,9 +1,11 @@
-const User = require('../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const debug = require('debug')('app:user')
+
+const User = require('../models/User');
 
 
 exports.createUser = async (req, res) => {
@@ -45,6 +47,7 @@ exports.createUser = async (req, res) => {
         })
 
     }catch(err){
+        debug(err);
         res.status(500).json({errors: [{msg: "internal server error"}]});
     }
 

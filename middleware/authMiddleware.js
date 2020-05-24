@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
         const decoded = jwt.verify(token, config.get('jwtSecret'))
         req.user = decoded.user;
     }catch(err){
-        return res.status(500).json({errors: [{ msg: "auth - internal server error" }]})
+        return res.status(500).json({errors: [{ msg: "invalid token. Authorization denied" }]})
     }
     next()
 }

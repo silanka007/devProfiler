@@ -1,8 +1,10 @@
 const { validationResult } = require('express-validator');
-const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const debug = require('debug')('app:auth')
+
+const User = require('../models/User');
 
 exports.getUser = async(req, res) => {
     try{
@@ -12,6 +14,7 @@ exports.getUser = async(req, res) => {
         }
         res.send(user); 
     }catch(err){
+        debug(err)
         return res.status(500).json({errors: [{ msg: 'internal server error!'}]})
     }
 
@@ -44,6 +47,7 @@ exports.login = async (req, res) => {
             res.send(token);
         })
     }catch(err){
+        debug(err);
         return res.status(500).json({ errors: [{ msg: "internal server error!"}]});
     }
 }
