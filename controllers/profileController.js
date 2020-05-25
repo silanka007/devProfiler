@@ -6,9 +6,9 @@ const  Profile = require('../models/Profile');
 
 exports.getProfile = async (req, res) => {
     try{
-        const profile = await Profile.findById(req.user.id);
+        const profile = await Profile.findOne({user: req.user.id}).populate('user', ['name', 'avatar']);
         if(!profile){
-            return res.status(400).json({ errors: [{ msg:"no profile found for this user"}]})
+            return res.status(400).json({ errors: [{ msg:"no profile found for this user"}]});
         }
         res.send(profile);
     }catch(err){
@@ -60,4 +60,29 @@ exports.postProfile = async (req, res) => {
         debug(err);
         return res.status(500).json({ errors: [{ msg: 'internal server error!'}]})
     }
+}
+
+
+exports.getProfiles = async(req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+        res.send(profiles);
+    } catch (err) {
+        debug(err);
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+    }
+}
+
+
+exports.getProfileByUserId = async(req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
+        if(!profile) return res.status(404).json({ error: [{ msg: "there is no profile for this user"}]})
+        res.send(profile);
+    } catch (err) {
+        debug(err);
+        if(err.kind === "ObjectId") return res.status(404).json({ error: [{ msg: "there is no profile for this user"}]});
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+    }
+    
 }
