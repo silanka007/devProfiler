@@ -52,7 +52,7 @@ exports.postProfile = async (req, res) => {
             return res.send(profile);
         }else{
             profile = new Profile(profileField);
-            profile.save();
+            await profile.save();
             return res.send(profile);
         }
 
@@ -95,5 +95,23 @@ exports.deleteUserInfo = async(req, res) => {
     } catch (err) {
         debug(err);
         res.status(500).json({errors: [{ msg: "internal server error"}]})
+    }
+}
+
+
+exports.addExperience = async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const experience = {...req.body};
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+        profile.experience.unshift(experience);
+        await profile.save();
+        res.send(profile);
+    } catch (err) {
+        debug(err);
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
     }
 }

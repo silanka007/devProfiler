@@ -33,7 +33,7 @@ exports.createUser = async (req, res) => {
         user.password = await bcrypt.hash(password, salt);
 
         //saving user to db
-        user.save();
+        await user.save();
 
         //generating user token
         const payload = {

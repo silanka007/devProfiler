@@ -4,6 +4,7 @@ const authMiddleware = require('../../middleware/authMiddleware');
 
 const profileController = require('../../controllers/profileController');
 
+
 // @route   GET api/v1/profile/me
 // @desc    Test route
 // @access  Private
@@ -30,10 +31,22 @@ router.get('/', profileController.getProfiles);
 // @access  Public
 router.get('/user/:user_id', profileController.getProfileByUserId);
 
+
 // @route   DELETE api/v1/profile
 // @desc    delete profile, user and post
 // @access  Private
 router.delete('/', authMiddleware, profileController.deleteUserInfo);
 
+
+// @route   PUT api/v1/profile/experience
+// @desc    add experience to user profile
+// @access  private
+router.put('/experience', [authMiddleware, [
+    check('title', 'title is required').not().isEmpty(),
+    check('location', 'location is required').not().isEmpty(),
+    check('company', 'company is required').not().isEmpty(),
+    check('from', 'from is required').not().isEmpty(),
+    check('current', 'current is required').not().isEmpty()
+]], profileController.addExperience);
 
 module.exports = router;
