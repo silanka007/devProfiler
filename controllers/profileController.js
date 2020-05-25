@@ -86,3 +86,14 @@ exports.getProfileByUserId = async(req, res) => {
     }
     
 }
+
+exports.deleteUserInfo = async(req, res) => {
+    try {
+        await Profile.findOneAndRemove({ user: req.user.id});
+        await User.findOneAndRemove({_id: req.user.id});
+        res.json({msg: "user deleted successfully!"})
+    } catch (err) {
+        debug(err);
+        res.status(500).json({errors: [{ msg: "internal server error"}]})
+    }
+}
