@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const  debug = require('debug')("app:profile");
+const request = require('request');
 
 const  Profile = require('../models/Profile');
 
@@ -139,4 +140,68 @@ exports.deleteExperience = async(req, res) => {
         debug(err);
         return res.status(500).json({ errors: [{ msg: "internal server error"}]})
     }
+}
+
+
+
+// add user education
+exports.addEducation = async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const education = {...req.body};
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+        profile.education.unshift(education);
+        await profile.save();
+        res.send(profile);
+    } catch (err) {
+        debug(err);
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+    }
+}
+
+
+// delete education
+exports.deleteEducation = async(req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+        const index = profile.education.map(item => item._id).indexOf(req.params.edu_id);
+        if(index > -1){
+            profile.education.splice(index, 1);
+            profile.save();
+            return res.send(profile);
+        }
+        res.send(profile);
+    } catch (err) {
+        debug(err);
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+    }
+}
+
+
+exports.getGithubRepo = async(req, res) => {
+    try {
+        const options = {
+            uri: `https://api.github.com/users/${req.params.githubusername}/repos?per_page=5&sort=created:asc`,
+            method: "GET",
+            headers: {
+                "user-agent": "node.js"
+            }
+        }
+        request(options, (err, response, body) =>{
+            if(err){
+                debug(error)
+            }
+            if(response.statusCode !== 200){
+                return res.status(404).json({ errors: [{ msg: "no user found for this github username"}]})
+            }
+            res.send(JSON.parse(body));
+        })
+    } catch (err) {
+        debug(err);
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+    }
+    
 }
