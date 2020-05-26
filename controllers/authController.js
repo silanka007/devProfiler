@@ -12,7 +12,7 @@ exports.getUser = async(req, res) => {
         if(!user){
             return res.status(404).json({errors: [{ msg: "user not found!" }]})
         }
-        res.send(user); 
+        res.json(user); 
     }catch(err){
         debug(err)
         return res.status(500).json({errors: [{ msg: 'internal server error!'}]})

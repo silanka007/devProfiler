@@ -4,6 +4,7 @@ const  debug = require('debug')("app:profile");
 const  Profile = require('../models/Profile');
 
 
+// get user profile
 exports.getProfile = async (req, res) => {
     try{
         const profile = await Profile.findOne({user: req.user.id}).populate('user', ['name', 'avatar']);
@@ -18,6 +19,7 @@ exports.getProfile = async (req, res) => {
 }
 
 
+// create or edit user profile
 exports.postProfile = async (req, res) => {
     const errors = validationResult(req);
 
@@ -25,7 +27,7 @@ exports.postProfile = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    //build objects
+    // build objects
     const profileField = {};
     const socialField = {};
     const socialKeys = ['twitter', 'facebook', 'instagram', 'linkedIn'];
@@ -63,6 +65,7 @@ exports.postProfile = async (req, res) => {
 }
 
 
+// get all profiles
 exports.getProfiles = async(req, res) => {
     try {
         const profiles = await Profile.find().populate('user', ['name', 'avatar']);
@@ -74,6 +77,7 @@ exports.getProfiles = async(req, res) => {
 }
 
 
+// get user profile by user id
 exports.getProfileByUserId = async(req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
@@ -87,6 +91,8 @@ exports.getProfileByUserId = async(req, res) => {
     
 }
 
+
+// delete user, user profile and user posts
 exports.deleteUserInfo = async(req, res) => {
     try {
         await Profile.findOneAndRemove({ user: req.user.id});
@@ -94,11 +100,12 @@ exports.deleteUserInfo = async(req, res) => {
         res.json({msg: "user deleted successfully!"})
     } catch (err) {
         debug(err);
-        res.status(500).json({errors: [{ msg: "internal server error"}]})
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
     }
 }
 
 
+// add user experience
 exports.addExperience = async(req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -109,6 +116,24 @@ exports.addExperience = async(req, res) => {
         const profile = await Profile.findOne({ user: req.user.id });
         profile.experience.unshift(experience);
         await profile.save();
+        res.send(profile);
+    } catch (err) {
+        debug(err);
+        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+    }
+}
+
+
+// delete experience
+exports.deleteExperience = async(req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+        const index = profile.experience.map(item => item._id).indexOf(req.params.exp_id);
+        if(index > -1){
+            profile.experience.splice(index, 1);
+            profile.save();
+            return res.send(profile);
+        }
         res.send(profile);
     } catch (err) {
         debug(err);

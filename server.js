@@ -12,7 +12,7 @@ connectDb()
 
 //init middlewares
 app.use(express.json({ extended: false }))
-const authMiddleware = require('./middleware/authMiddleware');
+// const authMiddleware = require('./middlewares/authMiddleware');
 
 //defining routes
 app.get('/', (req, res) => {res.send('api is running...')});

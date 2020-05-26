@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { check } = require('express-validator');
-const authMiddleware = require('../../middleware/authMiddleware');
+const authMiddleware = require('../../middlewares/authMiddleware');
 
 const profileController = require('../../controllers/profileController');
 
@@ -48,5 +48,10 @@ router.put('/experience', [authMiddleware, [
     check('from', 'from is required').not().isEmpty(),
     check('current', 'current is required').not().isEmpty()
 ]], profileController.addExperience);
+
+// @route   DELETE api/v1/profile/experience/exp_id
+// @desc    delete experience
+// @access  private
+router.delete('/experience/:exp_id', authMiddleware, profileController.deleteExperience);
 
 module.exports = router;
