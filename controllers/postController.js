@@ -78,3 +78,27 @@ exports.deletePost = async(req, res) => {
         return res.status(500).send('internal server error')
     }
 }
+
+
+//liking a post
+exports.likePost = async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
+            res.status(400).json({ errors: [{ msg: 'post already liked'}]})
+        }
+        post.likes.unshift({ user: req.user.id });
+        //saving to db
+        await post.save();
+        res.send(post);
+    } catch (err) {
+        debug(err);
+        if(err.kind === 'ObjectId'){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        return res.status(500).send('internal server error');
+    }
+}
