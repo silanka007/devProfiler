@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const  debug = require('debug')("app:profile");
-const request = require('request');
+const request = require('request'); 
 
 const  Profile = require('../models/Profile');
 
@@ -33,6 +33,7 @@ exports.postProfile = async (req, res) => {
     const socialField = {};
     const socialKeys = ['twitter', 'facebook', 'instagram', 'linkedIn'];
 
+    // refer to the profile model to understand the build object pattern
     profileField.user = req.user.id;
     Object.entries(req.body).map(item => {
         if(item[0] === 'skills'){
