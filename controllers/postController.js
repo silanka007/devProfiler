@@ -160,3 +160,28 @@ exports.addComment = async(req, res) => {
         return res.status(500).send('internal server error');
     }
 }
+
+
+// delete comment
+exports.deleteComment = async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]});
+        }
+        const comment = post.comments.find(comment => comment.id === req.params.comment_id);
+        if(!comment){
+            return res.status(404).json({ errors: [{ msg: 'comment does not exist'}]});
+        }
+        const removeIndex = post.comments.map(comment => comment.id).indexOf(req.params.comment_id);
+        post.comments.splice(removeIndex, 1);
+        post.save();
+        res.json(post.comments);
+    } catch (err) {
+        debug(err);
+        if(err.kind === 'ObjectId'){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]});
+        }
+        return res.status(500).json('internal server error')
+    }
+}

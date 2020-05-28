@@ -50,4 +50,10 @@ router.post('/comment/:id',[
 ], postController.addComment);
 
 
+// @route   DELETE /api/v1/posts/comment/:id/:comment_id
+// @desc    delete comment
+// @access  private
+router.delete('/comment/:id/:comment_id', postController.deleteComment);
+
+
 module.exports = router;
