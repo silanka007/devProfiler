@@ -15,7 +15,7 @@ exports.getUser = async(req, res) => {
         res.json(user); 
     }catch(err){
         debug(err)
-        return res.status(500).json({errors: [{ msg: 'internal server error!'}]})
+        return res.status(500).send('internal server error!')
     }
 
 }
@@ -48,6 +48,6 @@ exports.login = async (req, res) => {
         })
     }catch(err){
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error!"}]});
+        return res.status(500).send("internal server error!");
     }
 }

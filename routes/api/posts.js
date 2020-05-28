@@ -11,4 +11,10 @@ router.post('/', [authMiddleware, [
     check('text', 'text is required').not().isEmpty()
 ]], postController.createPost)
 
+
+// @route   POST /api/v1/posts
+// @desc    get all posts
+// @access  private
+router.get('/', authMiddleware, postController.getPosts);
+
 module.exports = router;

@@ -21,6 +21,16 @@ exports.createPost = async(req, res) => {
         res.json(savedPost);
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
+    }
+}
+
+exports.getPosts = async(req, res) => {
+    try {
+        const posts = await Post.find().sort({ date: -1 });
+        res.send(posts);
+    } catch (err) {
+        debug(err);
+        res.status(500).send('internal server error')
     }
 }

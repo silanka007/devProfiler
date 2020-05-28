@@ -15,7 +15,7 @@ exports.getProfile = async (req, res) => {
         res.send(profile);
     }catch(err){
         debug(err)
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]});
+        return res.status(500).send("internal server error");
     }
 }
 
@@ -62,7 +62,7 @@ exports.postProfile = async (req, res) => {
 
     }catch(err){
         debug(err);
-        return res.status(500).json({ errors: [{ msg: 'internal server error!'}]})
+        return res.status(500).send('internal server error!')
     }
 }
 
@@ -74,7 +74,7 @@ exports.getProfiles = async(req, res) => {
         res.send(profiles);
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
 }
 
@@ -88,7 +88,7 @@ exports.getProfileByUserId = async(req, res) => {
     } catch (err) {
         debug(err);
         if(err.kind === "ObjectId") return res.status(404).json({ error: [{ msg: "there is no profile for this user"}]});
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
     
 }
@@ -102,7 +102,7 @@ exports.deleteUserInfo = async(req, res) => {
         res.json({msg: "user deleted successfully!"})
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
 }
 
@@ -121,7 +121,7 @@ exports.addExperience = async(req, res) => {
         res.send(profile);
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
 }
 
@@ -139,7 +139,7 @@ exports.deleteExperience = async(req, res) => {
         res.send(profile);
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
 }
 
@@ -159,7 +159,7 @@ exports.addEducation = async(req, res) => {
         res.send(profile);
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
 }
 
@@ -177,7 +177,7 @@ exports.deleteEducation = async(req, res) => {
         res.send(profile);
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
 }
 
@@ -202,7 +202,7 @@ exports.getGithubRepo = async(req, res) => {
         })
     } catch (err) {
         debug(err);
-        return res.status(500).json({ errors: [{ msg: "internal server error"}]})
+        return res.status(500).send("internal server error")
     }
     
 }

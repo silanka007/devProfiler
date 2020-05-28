@@ -48,7 +48,7 @@ exports.createUser = async (req, res) => {
 
     }catch(err){
         debug(err);
-        res.status(500).json({errors: [{msg: "internal server error"}]});
+        res.status(500).send("internal server error");
     }
 
 }
