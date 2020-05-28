@@ -94,7 +94,7 @@ exports.likePost = async(req, res) => {
         post.likes.unshift({ user: req.user.id });
         //saving to db
         await post.save();
-        res.send(post);
+        res.send(post.likes);
     } catch (err) {
         debug(err);
         if(err.kind === 'ObjectId'){
@@ -119,8 +119,39 @@ exports.unlikePost = async(req, res) => {
         //getting the index of the user in the likes array and splicing it  from the array
         const removeIndex = post.likes.map(like => like.user).indexOf(req.user.id);
         post.likes.splice(removeIndex, 1);
-        await post.save()
-        res.send(post);
+        await post.save();
+        res.send(post.likes);
+    } catch (err) {
+        debug(err);
+        if(err.kind === 'ObjectId'){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        return res.status(500).send('internal server error');
+    }
+}
+
+
+//add comment to post
+exports.addComment = async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array() })
+    }
+    try {
+        const user = await User.findById(req.user.id);
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        const comment = {
+            user: req.user.id,
+            text: req.body.text,
+            name: user.name,
+            avatar: user.avatar
+        }
+        post.comments.unshift(comment);
+        await post.save();
+        res.json(post.comments);
     } catch (err) {
         debug(err);
         if(err.kind === 'ObjectId'){
