@@ -12,9 +12,15 @@ router.post('/', [authMiddleware, [
 ]], postController.createPost)
 
 
-// @route   POST /api/v1/posts
+// @route   GET /api/v1/posts
 // @desc    get all posts
 // @access  private
 router.get('/', authMiddleware, postController.getPosts);
+
+
+// @route   GET /api/v1/posts/:id
+// @desc    get post by id
+// @access  private
+router.get('/:id', authMiddleware, postController.getPost);
 
 module.exports = router;
