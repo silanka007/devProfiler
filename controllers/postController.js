@@ -49,10 +49,32 @@ exports.getPost = async(req, res) => {
         }
         res.json(post)
     } catch (err) {
+        debug(err);
         if(err.kind === 'ObjectId'){
             return res.status(404).json({ errors: [{ msg: 'post not found' }]})
         }
+        return res.status(500).send('internal server error')
+    }
+}
+
+
+// delete own post
+exports.deletePost = async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        if(post.user.toString() !== req.user.id){
+            return res.status(401).json({ errors: [{ msg: 'you are not authorized to delete this post'}]})
+        }
+        await post.remove();
+        res.json({ msg: 'post deleted successfully!'})
+    } catch (err) {
         debug(err);
+        if(err.kind === 'ObjectId'){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
         return res.status(500).send('internal server error')
     }
 }

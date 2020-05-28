@@ -23,4 +23,10 @@ router.get('/', authMiddleware, postController.getPosts);
 // @access  private
 router.get('/:id', authMiddleware, postController.getPost);
 
+
+// @route   DELETE /api/v1/:id
+// @desc    deleting own post
+// @param   private
+router.delete('/:id', authMiddleware, postController.deletePost);
+
 module.exports = router;
