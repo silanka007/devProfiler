@@ -87,12 +87,39 @@ exports.likePost = async(req, res) => {
         if(!post){
             return res.status(404).json({ errors: [{ msg: 'post not found'}]})
         }
+        //checking if user already liked the post
         if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
-            res.status(400).json({ errors: [{ msg: 'post already liked'}]})
+            return res.status(400).json({ errors: [{ msg: 'post already liked'}]})
         }
         post.likes.unshift({ user: req.user.id });
         //saving to db
         await post.save();
+        res.send(post);
+    } catch (err) {
+        debug(err);
+        if(err.kind === 'ObjectId'){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        return res.status(500).send('internal server error');
+    }
+}
+
+
+//unlike post
+exports.unlikePost = async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({ errors: [{ msg: 'post not found'}]})
+        }
+        // checking if user has not liked the post
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0){
+            return res.status(400).json({ errors: [{ msg: 'post need to be liked first'}]});
+        }
+        //getting the index of the user in the likes array and splicing it  from the array
+        const removeIndex = post.likes.map(like => like.user).indexOf(req.user.id);
+        post.likes.splice(removeIndex, 1);
+        await post.save()
         res.send(post);
     } catch (err) {
         debug(err);

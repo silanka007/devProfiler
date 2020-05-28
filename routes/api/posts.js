@@ -31,9 +31,15 @@ router.delete('/:id', authMiddleware, postController.deletePost);
 
 
 // @route   PUT /api/v1/posts/likes/:id
-// @desc    liking of post
+// @desc    like post
 // @param   private
-router.put('/likes/:id', authMiddleware, postController.likePost);
+router.put('/like/:id', authMiddleware, postController.likePost);
+
+
+// @route   PUT /api/v1/posts/unlike/:id
+// @desc    unlike post
+// @access  private
+router.put('/unlike/:id', authMiddleware, postController.unlikePost);
 
 
 module.exports = router;
