@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
 
+import Navbar from './components/layouts/navbar';
+import Landing from './components/layouts/landing';
+
 function App() {
   return (
     <>
-     <h1>hello from silanka</h1>
+      <Navbar />
+      <Landing />
     </>
   );
 }
