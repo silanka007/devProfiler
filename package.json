@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "DEBUG=app,app:* nodemon server"
+    "server": "DEBUG=app,app:* nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently 'npm run server' 'npm run client'"
   },
   "author": "Paul Onyekwelu",
   "license": "ISC",
@@ -23,10 +25,9 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4",
-    "typescript": "^3.9.2"
+    "nodemon": "^2.0.4"
   },
-  "nodemonConfig":{
+  "nodemonConfig": {
     "delay": "2500"
   }
 }
