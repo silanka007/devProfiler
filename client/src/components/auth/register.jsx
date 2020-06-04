@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const Register = () => {
+import { alertAction } from '../../redux/actions/alert.action';
+
+const Register = ({ alertAction }) => {
     const defaultFormData = {
         name: '',
         email: '',
@@ -18,7 +22,7 @@ const Register = () => {
     const onRegisterFormSubmit = (e) => {
         e.preventDefault();
         if(password !== confirmPassword){
-            return console.log("password does not match");
+            alertAction("password does not match", "danger");
         }
         console.log(formData);
     }
@@ -71,4 +75,9 @@ const Register = () => {
     )
 }
 
-export default Register;
+Register.propTypes = {
+    alertAction: PropTypes.array.isRequired
+}
+
+
+export default connect(null, {alertAction})(Register);
