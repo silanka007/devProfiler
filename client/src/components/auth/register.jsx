@@ -4,27 +4,29 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { alertAction } from '../../redux/actions/alert.action';
+import { registerUserAction } from '../../redux/actions/auth.action';
 
-const Register = ({ alertAction }) => {
+const Register = ({ alertAction, registerUserAction }) => {
     const defaultFormData = {
         name: '',
         email: '',
         password: '',
         confirmPassword: ''
     }
-    const [ formData, setFormData ] = useState(defaultFormData);
+    const [formData, setFormData] = useState(defaultFormData);
     const { name, email, password, confirmPassword } = formData;
 
     const onRegisterInputChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value})
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const onRegisterFormSubmit = (e) => {
+    const onRegisterFormSubmit = async(e) => {
         e.preventDefault();
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             alertAction("password does not match", "danger");
+            return;
         }
-        console.log(formData);
+        registerUserAction({ name, email, password })
     }
 
     return (
@@ -33,38 +35,38 @@ const Register = ({ alertAction }) => {
             <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
             <form className="form" action="create-profile.html" onSubmit={(e) => onRegisterFormSubmit(e)}>
                 <div className="form-group">
-                <input type="text" placeholder="Name" name="name" required autoComplete="name" value={name} onChange={(e) => onRegisterInputChange(e)} />
+                    <input type="text" placeholder="Name" name="name"  autoComplete="name" value={name} onChange={(e) => onRegisterInputChange(e)} />
                 </div>
                 <div className="form-group">
-                <input type="email" placeholder="Email Address" name="email" required autoComplete="email" value={email} onChange={(e) => onRegisterInputChange(e)} />
-                <small className="form-text"
+                    <input type="email" placeholder="Email Address" name="email"  autoComplete="email" value={email} onChange={(e) => onRegisterInputChange(e)} />
+                    <small className="form-text"
                     >This site uses Gravatar so if you want a profile image, use a
                     Gravatar email</small
-                >
+                    >
                 </div>
                 <div className="form-group">
-                <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    minLength="6"
-                    required
-                    autoComplete="new-password"
-                    value={password}
-                    onChange={(e) => onRegisterInputChange(e)}
-                />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        // minLength="6"
+                        // 
+                        autoComplete="new-password"
+                        value={password}
+                        onChange={(e) => onRegisterInputChange(e)}
+                    />
                 </div>
                 <div className="form-group">
-                <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    minLength="6"
-                    required
-                    autoComplete="new-password"
-                    value={confirmPassword}
-                    onChange={(e) => onRegisterInputChange(e)}
-                />
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        // minLength="6"
+                        
+                        autoComplete="new-password"
+                        value={confirmPassword}
+                        onChange={(e) => onRegisterInputChange(e)}
+                    />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Sign Up" />
             </form>
@@ -76,8 +78,9 @@ const Register = ({ alertAction }) => {
 }
 
 Register.propTypes = {
-    alertAction: PropTypes.array.isRequired
+    alertAction: PropTypes.func.isRequired,
+    registerUserAction: PropTypes.func.isRequired,
 }
 
 
-export default connect(null, {alertAction})(Register);
+export default connect(null, { alertAction, registerUserAction })(Register);
