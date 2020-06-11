@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { alertAction } from '../../redux/actions/alert.action';
 import { registerUserAction } from '../../redux/actions/auth.action';
 
-const Register = ({ alertAction, registerUserAction }) => {
+const Register = ({ isAuthenticated, alertAction, registerUserAction }) => {
     const defaultFormData = {
         name: '',
         email: '',
@@ -27,6 +27,10 @@ const Register = ({ alertAction, registerUserAction }) => {
             return;
         }
         registerUserAction({ name, email, password })
+    }
+
+    if(isAuthenticated){
+        return <Redirect to="/dashboard" />
     }
 
     return (
@@ -80,7 +84,12 @@ const Register = ({ alertAction, registerUserAction }) => {
 Register.propTypes = {
     alertAction: PropTypes.func.isRequired,
     registerUserAction: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
 }
 
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
 
-export default connect(null, { alertAction, registerUserAction })(Register);
+
+export default connect(mapStateToProps, { alertAction, registerUserAction })(Register);
