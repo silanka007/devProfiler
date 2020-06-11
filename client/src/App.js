@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import { Login, Register } from './components/auth';
@@ -9,9 +9,20 @@ import './App.css';
 //redux imports
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import setAuthToken from './utils/setAuthToken.utils';
+import { userLoadedAction } from '../src/redux/actions/auth.action';
+
+if(localStorage.token){
+  setAuthToken(localStorage.token);
+}
 
 
 function App() {
+
+  useEffect(() => {
+    store.dispatch(userLoadedAction())
+  }, [])
+
   return (
     <Provider store={store}>
       <Router>
