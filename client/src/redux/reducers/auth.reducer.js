@@ -8,6 +8,7 @@ import {
   LOGOUT
 } from "../constant";
 
+
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
@@ -15,7 +16,8 @@ const initialState = {
   user: null,
 };
 
-export const auth = (state = initialState, action) => {
+
+const auth = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case REGISTER_SUCCESS:
@@ -34,3 +36,6 @@ export const auth = (state = initialState, action) => {
       return state;
   }
 };
+
+
+export default auth;
