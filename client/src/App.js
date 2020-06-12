@@ -14,6 +14,7 @@ import { userLoadedAction } from '../src/redux/actions/auth.action';
 import PrivateRoute from './components/routing/privateRouting';
 import Dashboard from './components/dashboard/dashboard';
 import CreateProfile from './components/profile-forms/createProfile';
+import EditProfile from './components/profile-forms/editProfile';
 
 
 if(localStorage.token){
@@ -40,6 +41,7 @@ function App() {
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              <PrivateRoute exact path='/edit-profile' component={EditProfile} />
             </Switch> 
           </section>
         </React.Fragment>

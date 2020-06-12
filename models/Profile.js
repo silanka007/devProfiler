@@ -97,7 +97,10 @@ const ProfileSchema = new mongoose.Schema({
         instagram: {
             type: String
         },
-        linkedIn: {
+        linkedin: {
+            type: String
+        },
+        youtube: {
             type: String
         }
     }

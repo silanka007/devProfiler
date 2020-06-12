@@ -31,7 +31,7 @@ exports.postProfile = async (req, res) => {
     // build objects
     const profileField = {};
     const socialField = {};
-    const socialKeys = ['twitter', 'facebook', 'instagram', 'linkedIn'];
+    const socialKeys = ['twitter', 'facebook', 'instagram', 'linkedin', 'youtube'];
 
     // refer to the profile model to understand the build object pattern
     profileField.user = req.user.id;
