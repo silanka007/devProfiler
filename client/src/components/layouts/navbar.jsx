@@ -9,7 +9,8 @@ import { logoutAction } from '../../redux/actions/auth.action';
 function Navbar({ auth: {loading, isAuthenticated }, logoutAction }) {
     const authLinks = (
         <>
-            <li><a onClick={logoutAction} href="#!">Logout</a></li>
+            <li><Link to="/dashboard">Dashboard</Link></li>
+            <li><a onClick={logoutAction} href="#!"> <i className="fas fa-sign-out-alt"/> Logout</a></li>
         </>
     );
 
@@ -23,7 +24,7 @@ function Navbar({ auth: {loading, isAuthenticated }, logoutAction }) {
     return (
         <nav className="navbar bg-dark">
             <h1>
-                <Link to="/"><i className="fas fa-code"></i> DevProfiler</Link>
+                <Link to="/"><i className="fas fa-code" /> DevProfiler</Link>
             </h1>
             <ul>
                 <li><Link to="#!">Developers</Link></li>

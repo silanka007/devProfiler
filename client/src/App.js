@@ -13,6 +13,7 @@ import setAuthToken from './utils/setAuthToken.utils';
 import { userLoadedAction } from '../src/redux/actions/auth.action';
 import PrivateRoute from './components/routing/privateRouting';
 import Dashboard from './components/dashboard/dashboard';
+import CreateProfile from './components/profile-forms/createProfile';
 
 
 if(localStorage.token){
@@ -38,6 +39,7 @@ function App() {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/create-profile" component={CreateProfile} />
             </Switch> 
           </section>
         </React.Fragment>

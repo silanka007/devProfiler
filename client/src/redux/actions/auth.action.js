@@ -8,6 +8,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  CLEAR_PROFILE,
 } from "../constant";
 import { alertAction } from "./alert.action";
 import setAuthToken from "../../utils/setAuthToken.utils";
@@ -88,5 +89,6 @@ export const registerUserAction = ({ name, email, password }) => async (
 
 // logout user
 export const logoutAction = () => (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE })
   dispatch({ type: LOGOUT });
 };
