@@ -27,7 +27,7 @@ function Navbar({ auth: {loading, isAuthenticated }, logoutAction }) {
                 <Link to="/"><i className="fas fa-code" /> DevProfiler</Link>
             </h1>
             <ul>
-                <li><Link to="#!">Developers</Link></li>
+                <li><Link to="/profiles">Developers</Link></li>
                 {
                     !loading && (<>{ isAuthenticated? authLinks : guestLinks }</>)
                 }

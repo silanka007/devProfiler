@@ -20,7 +20,7 @@ router.post('/', [authMiddleware, [
 ]], profileController.postProfile)
 
 
-// @route   GET api/v1/profiles
+// @route   GET api/v1/profile
 // @desc    get all profiles
 // @access  Public
 router.get('/', profileController.getProfiles);
