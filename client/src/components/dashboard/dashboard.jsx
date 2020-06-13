@@ -7,7 +7,7 @@ import { getProfile } from '../../redux/actions/profile.action';
 import Spinner from '../layouts/spinner';
 import DashboardAction from './dashboardAction';
 import Experience from './experience';
-
+import Education from './education';
 
 
 const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile } }) => {
@@ -24,6 +24,7 @@ const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile } })
             <Fragment>
                 <DashboardAction />
                 <Experience experience={profile.experience} />
+                <Education education={profile.education} />
             </Fragment>
             : 
             <Fragment>

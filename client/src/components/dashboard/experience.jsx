@@ -5,28 +5,28 @@ import Moment from 'react-moment'
 const Experience = ({experience}) => {
   const experienceListing = experience.map((exp) => {
   return(
-    <tr>
+    <tr key={exp._id}>
       <td>{exp.company}</td>
-      <td class="hide-sm">{exp.title}</td>
-      <td class="hide-sm">
+      <td className="hide-sm">{exp.title}</td>
+      <td className="hide-sm">
           <Moment format='YYYY/MM/DD'>{exp.from}</Moment> - {' '} {
               exp.current && exp.to === null ? ('Present') : (<Moment format='YYYY/MM/DD'>{exp.to}</Moment>)
           }
       </td>
       <td>
-        <button class="btn btn-danger">Delete</button>
+        <button className="btn btn-danger">Delete</button>
       </td>
     </tr>)
   });
   return (
     <Fragment>
-      <h2 class="my-2">Experience Credentials</h2>
-      <table class="table">
+      <h2 className="my-2">Experience Credentials</h2>
+      <table className="table">
         <thead>
           <tr>
             <th>Company</th>
-            <th class="hide-sm">Title</th>
-            <th class="hide-sm">Years</th>
+            <th className="hide-sm">Title</th>
+            <th className="hide-sm">Years</th>
             <th></th>
           </tr>
         </thead>
