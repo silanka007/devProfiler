@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { getProfile } from '../../redux/actions/profile.action';
+import { getProfile, deleteAccount } from '../../redux/actions/profile.action';
 import Spinner from '../layouts/spinner';
 import DashboardAction from './dashboardAction';
 import Experience from './experience';
 import Education from './education';
 
 
-const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile } }) => {
+const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile }, deleteAccount }) => {
 
     useEffect(() => {
         getProfile()
@@ -32,6 +32,10 @@ const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile } })
                 <Link to='/create-profile' className='btn btn-primary my-1'>Create Profile</Link>
             </Fragment>
         }
+        <button className='btn btn-danger my-2' onClick={() => deleteAccount()}>
+            delete Account
+        </button>
+        
     </Fragment>
 }
 
@@ -46,4 +50,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 })
 
-export default connect(mapStateToProps, { getProfile })(Dashboard);
+export default connect(mapStateToProps, { getProfile, deleteAccount })(Dashboard);

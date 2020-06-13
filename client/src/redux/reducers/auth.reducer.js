@@ -5,7 +5,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  ACCOUNT_DELETED
 } from "../constant";
 
 
@@ -30,6 +31,7 @@ const auth = (state = initialState, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
+    case ACCOUNT_DELETED:
       localStorage.removeItem("token");
       return { ...state, user: null, token: null, isAuthenticated: false, loading: false };
     default:

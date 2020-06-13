@@ -97,6 +97,7 @@ exports.getProfileByUserId = async(req, res) => {
 // delete user, user profile and user posts
 exports.deleteUserInfo = async(req, res) => {
     try {
+        await Post.deleteMany({ user: req.user.id })
         await Profile.findOneAndRemove({ user: req.user.id});
         await User.findOneAndRemove({_id: req.user.id});
         res.json({msg: "user deleted successfully!"})

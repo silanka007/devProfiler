@@ -79,7 +79,7 @@ const AddExperience = ({ addExperience, history }) => {
               type="checkbox"
               name="current"
               value={current}
-              onChange={(e) => setFormData({ ...formData, current: !current })}
+              onChange={() => setFormData({ ...formData, current: !current })}
             />{" "}
             Current Job
           </p>

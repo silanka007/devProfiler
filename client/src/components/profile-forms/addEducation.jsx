@@ -89,7 +89,7 @@ const AddEducation = ({ addEducation, history }) => {
               type="checkbox"
               name="current"
               value={current}
-              onChange={(e) => setFormData({ ...formData, current: !current })}
+              onChange={() => setFormData({ ...formData, current: !current })}
             />{" "}
             Current School or Bootcamp
           </p>
