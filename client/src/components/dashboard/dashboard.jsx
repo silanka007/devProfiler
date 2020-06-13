@@ -14,7 +14,7 @@ const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile }, d
 
     useEffect(() => {
         getProfile()
-    }, [])
+    }, [getProfile])
 
     return loading && profile === null ? <Spinner /> : <Fragment>
         <h1 className="large text-primary" >Dashboard</h1>

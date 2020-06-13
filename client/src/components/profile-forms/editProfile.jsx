@@ -58,7 +58,7 @@ const EditProfile = ({ profile: {profile, loading}, createProfile, getProfile, h
           linkedin: loading || !profile.socials ? '' : profile.socials.linkedin
 
       });
-  }, [loading])
+  }, [loading, getProfile, profile])
 
   const onChange = e => {
       setFormData({...formData, [e.target.name]: e.target.value })
