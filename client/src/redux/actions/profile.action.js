@@ -75,3 +75,27 @@ export const addExperience = (formData, history) => async dispatch => {
         }
     }
 }
+
+
+// add Education to user profile
+export const addEducation = (formData, history) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.put('/api/v1/profile/education', formData, config);
+        dispatch({
+            type: UPDATE_PROFILE,
+            Payload: res.data
+        })
+        dispatch(alertAction('Education added successfully', 'success'))
+        history.push('/dashboard');
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error => dispatch(alertAction(error.msg, 'danger')))
+        }
+    }
+}
