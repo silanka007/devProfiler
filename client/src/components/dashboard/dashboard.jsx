@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { getProfile } from '../../redux/actions/profile.action';
 import Spinner from '../layouts/spinner';
 import DashboardAction from './dashboardAction';
+import Experience from './experience';
 
 
 
@@ -22,7 +23,8 @@ const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile } })
             profile && profile !== null ? 
             <Fragment>
                 <DashboardAction />
-            </Fragment> 
+                <Experience experience={profile.experience} />
+            </Fragment>
             : 
             <Fragment>
                 <p>You have not setup a profile. please add some info</p>
@@ -30,8 +32,6 @@ const Dashboard = ({ getProfile, auth: { user }, profile:{ loading, profile } })
             </Fragment>
         }
     </Fragment>
-    
-    
 }
 
 Dashboard.propTypes = {
