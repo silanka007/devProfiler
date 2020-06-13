@@ -15,6 +15,7 @@ import PrivateRoute from './components/routing/privateRouting';
 import Dashboard from './components/dashboard/dashboard';
 import CreateProfile from './components/profile-forms/createProfile';
 import EditProfile from './components/profile-forms/editProfile';
+import AddExperience from './components/profile-forms/addExperience';
 
 
 if(localStorage.token){
@@ -42,6 +43,7 @@ function App() {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/create-profile" component={CreateProfile} />
               <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+              <PrivateRoute exact path='/add-experience' component={AddExperience} />
             </Switch> 
           </section>
         </React.Fragment>
