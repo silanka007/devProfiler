@@ -30,7 +30,7 @@ router.get('/:id', postController.getPost);
 router.delete('/:id', postController.deletePost);
 
 
-// @route   PUT /api/v1/posts/likes/:id
+// @route   PUT /api/v1/posts/like/:id
 // @desc    like post
 // @param   private
 router.put('/like/:id', postController.likePost);

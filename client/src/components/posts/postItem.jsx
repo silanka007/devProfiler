@@ -4,8 +4,10 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 
 const PostItem = ({
-  post: { user, name, avatar, text, date, likes, comments },
+  post: { _id, user, name, avatar, text, date, likes, comments },
   auth,
+  likePost,
+  unlikePost
 }) => {
   return (
     <div className="post bg-white p-1 my-1">
@@ -20,11 +22,11 @@ const PostItem = ({
         <p className="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
-        <button type="button" className="btn btn-light">
+        <button type="button" className="btn btn-light" onClick={() => likePost(_id)} >
           <i className="fas fa-thumbs-up"></i>
           {likes.length > 0 && <span> {likes.length}</span>}
         </button>
-        <button type="button" className="btn btn-light">
+        <button type="button" className="btn btn-light" onClick={() => unlikePost(_id)}>
           <i className="fas fa-thumbs-down"></i>
         </button>
         <Link to="/post" className="btn btn-primary">

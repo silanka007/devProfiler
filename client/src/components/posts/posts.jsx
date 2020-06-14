@@ -4,10 +4,10 @@ import PostItem from "./postItem";
 import { connect } from 'react-redux';
 import { getPosts } from "../../redux/actions/post.action";
 import Spinner from '../layouts/spinner';
-import { post } from "request";
+import { likePost, unlikePost } from "../../redux/actions/post.action";
 
 
-const Posts = ({ post: {posts, loading }, getPosts, auth }) => {
+const Posts = ({ post: {posts, loading }, getPosts, auth, likePost, unlikePost }) => {
     useEffect(() => {
         getPosts()
     }, [getPosts])
@@ -38,7 +38,7 @@ const Posts = ({ post: {posts, loading }, getPosts, auth }) => {
       <div className="posts">
           {
               loading ? (<Spinner /> ) : posts.map( post => (
-                <PostItem key={post._id} post={post} auth={auth} />
+                <PostItem key={post._id} post={post} auth={auth} likePost={likePost} unlikePost={unlikePost} />
               ))
           }
       </div>
@@ -56,4 +56,4 @@ const mapStateToMaps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToMaps, { getPosts })(Posts);
+export default connect(mapStateToMaps, { getPosts, likePost, unlikePost })(Posts);
