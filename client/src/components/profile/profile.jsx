@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getProfileById } from "../../redux/actions/profile.action";
 import Spinner from "../layouts/spinner";
 import ProfileTop from "./profileTop";
+import ProfileAbout from "./profileAbout";
 
 const Profile = ({
   match,
@@ -34,6 +35,7 @@ const Profile = ({
             )}
             <div className="profile-grid my-1">
               <ProfileTop profile={profile} />
+              <ProfileAbout profile={profile} />
             </div>
         </Fragment>
       )}
