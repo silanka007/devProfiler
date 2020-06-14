@@ -1,4 +1,4 @@
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST } from "../constant";
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST } from "../constant";
 
 const INITIAL_STATE = {
   posts: [],
@@ -10,6 +10,8 @@ const INITIAL_STATE = {
 const post = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    case ADD_POST:
+        return {...state, loading:false, posts:[payload, ...state.posts]}
     case GET_POSTS:
       return { ...state, posts: payload, loading: false };
     case POST_ERROR:
