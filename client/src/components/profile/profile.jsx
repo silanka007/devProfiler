@@ -49,7 +49,7 @@ const Profile = ({
                   />
                 ))
               ) : (
-                <h4> Their is no experience added to this account </h4>
+                <h4> There is no experience added to this account </h4>
               )}
             </div>
 

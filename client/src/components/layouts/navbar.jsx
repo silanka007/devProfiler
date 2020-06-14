@@ -9,6 +9,7 @@ import { logoutAction } from '../../redux/actions/auth.action';
 function Navbar({ auth: {loading, isAuthenticated }, logoutAction }) {
     const authLinks = (
         <>
+            <li><Link to="/posts">Posts</Link></li>
             <li><Link to="/dashboard">Dashboard</Link></li>
             <li><a onClick={logoutAction} href="#!"> <i className="fas fa-sign-out-alt"/> Logout</a></li>
         </>

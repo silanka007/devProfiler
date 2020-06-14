@@ -80,7 +80,6 @@ export const getGithubRepo = githubusername => async dispatch => {
 }
 
 
-
 // create and edit user profile
 export const createProfile = (formData, history, edit = false) => async (
   dispatch
@@ -119,6 +118,7 @@ export const createProfile = (formData, history, edit = false) => async (
   }
 };
 
+
 // add experience to user profile
 export const addExperience = (formData, history) => async (dispatch) => {
   try {
@@ -145,6 +145,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
     });
   }
 };
+
 
 // add Education to user profile
 export const addEducation = (formData, history) => async (dispatch) => {
@@ -173,6 +174,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
   }
 };
 
+
 // delete experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
@@ -190,6 +192,7 @@ export const deleteExperience = (id) => async (dispatch) => {
   }
 };
 
+
 // delete education
 export const deleteEducation = (id) => async (dispatch) => {
   try {
@@ -206,6 +209,7 @@ export const deleteEducation = (id) => async (dispatch) => {
     });
   }
 };
+
 
 // delete user account
 export const deleteAccount = () => async (dispatch) => {
