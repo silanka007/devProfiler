@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"; 
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 
@@ -7,7 +6,8 @@ const PostItem = ({
   post: { _id, user, name, avatar, text, date, likes, comments },
   auth,
   likePost,
-  unlikePost
+  unlikePost,
+  deletePost
 }) => {
   return (
     <div className="post bg-white p-1 my-1">
@@ -22,11 +22,19 @@ const PostItem = ({
         <p className="post-date">
           Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
         </p>
-        <button type="button" className="btn btn-light" onClick={() => likePost(_id)} >
+        <button
+          type="button"
+          className="btn btn-light"
+          onClick={() => likePost(_id)}
+        >
           <i className="fas fa-thumbs-up"></i>
           {likes.length > 0 && <span> {likes.length}</span>}
         </button>
-        <button type="button" className="btn btn-light" onClick={() => unlikePost(_id)}>
+        <button
+          type="button"
+          className="btn btn-light"
+          onClick={() => unlikePost(_id)}
+        >
           <i className="fas fa-thumbs-down"></i>
         </button>
         <Link to="/post" className="btn btn-primary">
@@ -35,8 +43,8 @@ const PostItem = ({
             <span className="comment-count">{comments.length}</span>
           )}
         </Link>
-        { !auth.loading && auth.user._id === user && (
-          <button type="button" className="btn btn-danger">
+        {!auth.loading && auth.user._id === user && (
+          <button type="button" className="btn btn-danger" onClick={() => deletePost(_id)} >
             <i className="fas fa-times"></i>
           </button>
         )}
@@ -45,9 +53,5 @@ const PostItem = ({
   );
 };
 
-PostItem.propTypes = {
-  post: PropTypes.object.isRequired,
-  authUserId: PropTypes.string
-};
 
 export default PostItem;
