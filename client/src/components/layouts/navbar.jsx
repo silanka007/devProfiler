@@ -11,7 +11,7 @@ function Navbar({ auth: {loading, isAuthenticated }, logoutAction }) {
         <>
             <li><Link to="/posts">Posts</Link></li>
             <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><a onClick={logoutAction} href="#!"> <i className="fas fa-sign-out-alt"/> Logout</a></li>
+            <li><a onClick={logoutAction} href="#!"> <i className="fas fa-sign-out-alt"/> <span className='hide-sm'>Logout</span></a></li>
         </>
     );
 
