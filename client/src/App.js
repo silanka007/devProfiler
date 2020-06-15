@@ -20,6 +20,8 @@ import AddEducation from './components/profile-forms/addEducation';
 import Profiles from './components/profiles/profiles';
 import Profile from './components/profile/profile';
 import Posts from './components/posts/posts';
+import Post from './components/post/post';
+
 
 
 if(localStorage.token){
@@ -52,6 +54,7 @@ function App() {
               <PrivateRoute exact path='/add-experience' component={AddExperience} />
               <PrivateRoute exact path='/add-education' component={AddEducation} />
               <PrivateRoute exact path='/posts' component={Posts} />
+              <PrivateRoute exact path='/posts/:post_id' component={Post} />
             </Switch> 
           </section>
         </React.Fragment>

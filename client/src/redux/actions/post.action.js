@@ -1,6 +1,23 @@
-import { POST_ERROR, GET_POSTS, UPDATE_LIKES, DELETE_POST, ADD_POST } from "../constant"
+import { POST_ERROR, GET_POSTS, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT } from "../constant"
 import axios from "axios"
 import {alertAction} from './alert.action';
+
+
+export const getPost = postId => async dispatch => {
+    try {
+        const res = await axios.get(`/api/v1/posts/${postId}`);
+        dispatch({
+            type: GET_POST,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { error: err.response.statusText, status: err.response.status}
+        })
+    }
+}
+
 
 export const getPosts = () => async dispatch => {
     try {
@@ -77,6 +94,45 @@ export const deletePost = postId => async dispatch => {
             payload: postId
         })
         dispatch(alertAction('post deleted successfully', 'success'))
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { error: err.response.statusText, status: err.response.status}
+        })
+    }
+}
+
+
+export const addComment = (postId, formData) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    try {
+        const res = await axios.post(`/api/v1/posts/comment/${postId}`, formData, config);
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        })
+        dispatch(alertAction('Comment added successfully', 'success'))
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { error: err.response.statusText, status: err.response.status}
+        })
+    }
+}
+
+
+export const removeComment = (postId, commentId) => async dispatch => {
+    try {
+        await axios.delete(`/api/v1/posts/comment/${postId}/${commentId}`);
+        dispatch({
+            type: REMOVE_COMMENT,
+            payload: commentId
+        })
+        dispatch(alertAction('Comment deleted successfully', 'success'))
     } catch (err) {
         dispatch({
             type: POST_ERROR,
