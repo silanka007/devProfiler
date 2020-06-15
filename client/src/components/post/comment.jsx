@@ -1,6 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
-import auth from "../../redux/reducers/auth.reducer";
+import { Link } from "react-router-dom";
 
 const Comment = ({
   postId,
@@ -11,10 +11,10 @@ const Comment = ({
   return (
     <div className="post bg-white p-1 my-1">
       <div>
-        <a href="profile.html">
+        <Link to={`/profile/${user}`}>
           <img className="round-img" src={avatar} alt="" />
           <h4>{name}</h4>
-        </a>
+        </Link>
       </div>
       <div>
         <p className="my-1">{text}</p>
@@ -24,7 +24,7 @@ const Comment = ({
         {!auth.loading && auth.user._id === user && (
           <button
             type="button"
-            class="btn btn-danger"
+            className="btn btn-danger"
             onClick={() => removeComment(postId, _id)}
           >
             <i className="fas fa-times"></i>

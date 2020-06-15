@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import PropTypes from "prop-types";
 
 const CommentForm = ({ addComment, postId }) => {
     const [text, setText] = useState('');

@@ -13,7 +13,7 @@ const ProfileGithub = ({
     if (githubusername) {
       getGithubRepo(githubusername);
     }
-  }, [getGithubRepo]);
+  }, [getGithubRepo, githubusername]);
 
   return (
     <div className="profile-github">
